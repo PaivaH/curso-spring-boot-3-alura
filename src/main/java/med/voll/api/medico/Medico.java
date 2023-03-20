@@ -39,16 +39,17 @@ public class Medico {
 
     private Boolean ativo;
 
-    public Medico(MedicoDTO medicoDTO) {
+    public Medico(MedicoDtoRequest medicoDTO) {
         this.ativo = true;
         this.nome = medicoDTO.nome();
         this.email = medicoDTO.email();
         this.crm = medicoDTO.crm();
         this.especialidade = medicoDTO.especialidade();
         this.endereco = new Endereco(medicoDTO.endereco());
+        this.telefone = medicoDTO.telefone();
     }
 
-    public void atualizarInformacoes(AtualizarMedicoDTO dados) {
+    public void atualizarInformacoes(AtualizarMedicoDtoRequest dados) {
         if (dados.nome() != null) {
             this.nome = dados.nome();
         }

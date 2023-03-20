@@ -1,13 +1,13 @@
 package med.voll.api.medico;
 
 import jakarta.validation.constraints.NotNull;
-import med.voll.api.endereco.EnderecoDTO;
+import med.voll.api.endereco.EnderecoDto;
 
-public record AtualizarMedicoDTO(
+public record AtualizarMedicoDtoRequest(
         @NotNull
         Long id,
         String nome,
         String telefone,
-        EnderecoDTO endereco) {
+        EnderecoDto endereco) {
 
 }
