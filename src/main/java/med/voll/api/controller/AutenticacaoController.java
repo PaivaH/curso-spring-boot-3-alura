@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import lombok.var;
+import med.voll.api.domain.usuario.Usuario;
 import med.voll.api.domain.usuario.UsuarioDto;
+import med.voll.api.infra.security.TokenJWTDto;
+import med.voll.api.infra.security.TokenService;
 
 @RestController
 @RequestMapping("/login")
@@ -21,12 +23,17 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity efeturLogin(@RequestBody @Valid UsuarioDto dto) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
 
-        Authentication authentication = manager.authenticate(token);
+        Authentication authentication = manager.authenticate(authToken);
 
-        return ResponseEntity.ok().build();
+        var JWTToken = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new TokenJWTDto(JWTToken));
     }
 }
