@@ -26,7 +26,7 @@ public class AutenticacaoController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity efeturLogin(@RequestBody @Valid UsuarioDto dto) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
 
@@ -36,4 +36,15 @@ public class AutenticacaoController {
 
         return ResponseEntity.ok(new TokenJWTDto(JWTToken));
     }
+
+    // @PostMapping("/signin")
+    // public ResponseEntity criarConta(@RequestBody @Valid UsuarioDto dto) {
+    //     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.login(), dto.senha());
+
+    //     Authentication authentication = manager.authenticate(authToken);
+
+    //     var JWTToken = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+    //     return ResponseEntity.ok(new TokenJWTDto(JWTToken));
+    // }
 }
